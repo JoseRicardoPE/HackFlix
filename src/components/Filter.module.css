@@ -1,0 +1,34 @@
+.content__rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 1.75rem;
+}
+
+.content__rating__span {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0.625rem;
+  color: #fff;
+  text-shadow: 0 0 0.0625rem #f0f8ff, 0 0 4px #f0f8ff;
+}
+
+.content__rating__ReactStars {
+  text-shadow: 0 0 0.1875rem #00f5f5, 0 0 6px #00f5f5, 0 0 9px #00f5f5;
+}
+
+@media screen and (max-width: 500px) {
+  .content__rating{
+    width: 80%;
+    margin: 0 auto 1.25rem;
+  }
+
+  .content__rating__span{
+    font-size: 1rem;
+  }
+
+  .content__rating__ReactStars{
+    font-size: 1rem;
+  }
+
+}

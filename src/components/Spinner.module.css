@@ -1,0 +1,19 @@
+.spinner{
+    min-height: 100vh;
+    background-color: #000;
+    color: #ff0000;
+    display: flex;
+    justify-content: center;
+    /* padding: 2rem; */
+}
+
+.spinning{
+    margin: 100px 0;
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    to{
+        transform: rotate(360deg);
+    }
+}

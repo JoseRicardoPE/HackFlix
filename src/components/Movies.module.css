@@ -1,0 +1,14 @@
+.section__movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  justify-content: center;
+  gap: 1.875rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 500px) {
+  .section__movies {
+    grid-template-columns: 100%;
+  }
+}
