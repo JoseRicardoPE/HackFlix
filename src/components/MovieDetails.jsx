@@ -11,10 +11,6 @@ function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const movieImageUrl = movie.poster_path
-  //   ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-  //   : placeHolder;
-
   useEffect(() => {
     setLoading(true);
     async function getMovie() {
@@ -23,7 +19,7 @@ function MovieDetails() {
       );
       console.log(movieById.data); //No se utilizó .results porque el endpoint que me devuelve es el de la película en sí.
       setMovie(movieById.data);
-      setLoading(false);
+      setLoading(false); //cuando se termina de cargar la película el setLoading queda en false.
     }
 
     getMovie();
@@ -37,10 +33,18 @@ function MovieDetails() {
     return movie.genres.map((genre) => genre.name).join(" | ");
   }
 
+  const movieImageUrl = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+    : placeHolder;
+
   return (
     <section className={styles.movieDetails__container}>
       <figure className={`${styles.movieDetails__figure} ${styles.column}`}>
-        <img className={styles.movieDetails__img} src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+        <img
+          className={styles.movieDetails__img}
+          src={movieImageUrl}
+          alt={movie.title}
+        />
       </figure>
       <section className={`${styles.movieDetails__texts} ${styles.column}`}>
         <h2 className={styles.movieDetails__title}>{movie.title}</h2>

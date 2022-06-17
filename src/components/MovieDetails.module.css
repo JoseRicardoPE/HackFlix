@@ -12,13 +12,14 @@
 
 .movieDetails__figure {
   min-width: 11.25rem;
-  width: 30%;
   height: auto;
+  width: 30%;
   margin: 4.375rem 0 2.5rem;
   padding: 0.2188rem;
   border: 0.125rem solid #fff;
   border-radius: 0.625rem;
   box-shadow: 0 0 1.25rem #ff0000, inset 0 0 0.625rem #ff0800;
+  overflow-y: hidden;
   z-index: 100;
 }
 

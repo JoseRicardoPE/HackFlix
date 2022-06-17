@@ -22,8 +22,8 @@
 
 .search__button{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     margin-right: 0.3125rem;
     border: none;
     background: transparent;
@@ -32,6 +32,6 @@
 
 @media screen and (max-width: 350px){
     .search__input{
-        width: 200px;
+        width: 180px;
     }
 }

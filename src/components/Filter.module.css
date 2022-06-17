@@ -28,7 +28,14 @@
   }
 
   .content__rating__ReactStars{
-    font-size: 1rem;
+    width: 50px;
+  }
+
+}
+
+@media screen and (max-width: 350px){
+  .content__rating{
+    margin-top: 100px;
   }
 
 }

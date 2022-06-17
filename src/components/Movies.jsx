@@ -10,17 +10,17 @@ import styles from "./Movies.module.css";
 
 function Movies({ search }) {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1); //El estado inicial de la página es 1
   const [filterMovies, setFilterMovies] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(true); //Estado para averiguar si la página actual es menor al total de páginas de la API
 
   // Primero se carga el componente y luego se ejecuta el efecto
   useEffect(() => {
     setLoading(true);
     const searchUrlMovie = search
-      ? `https://api.themoviedb.org/3/search/movie?query=${search}`
-      : `https://api.themoviedb.org/3/movie/popular?api_key=af29515c6aa30c89141d36fb25af9426&page=${page}`; //le paso &page al query como otra condición de busqueda más la página
+      ? `https://api.themoviedb.org/3/search/movie?query=${search}` //Búsqueda específicia. (Trae las películas que coinciden con ese parámetro de busqueda).
+      : `https://api.themoviedb.org/3/movie/popular?api_key=af29515c6aa30c89141d36fb25af9426&page=${page}`; //Le paso &page al query como otra condición de busqueda, más la página
     async function getMovies() {
       const moviesApi = await axios.get(searchUrlMovie, {
         headers: {
@@ -34,18 +34,19 @@ function Movies({ search }) {
         setMovies(moviesApi.data.results);
       } else {
         setMovies((prevMovies) => prevMovies.concat(moviesApi.data.results)); //para que no me reemplace las movies anteriores
+        setHasMore(moviesApi.data.page < moviesApi.data.total_pages); //Cuando se acaban las páginas el hasMore pasa a false.
       }
-      setHasMore(moviesApi.data.page < moviesApi.data.total_pages);
+      setLoading(false); 
     }
     getMovies();
-    setLoading(false);
-  }, [search, page]); //A parte de que se cargue por primera vez el efecto cuando se carga el componente, si cambia el parámetro search el efecto se vuelve a cargar.
+  }, [search, page]); //A parte de que se cargue por primera vez el efecto cuando se carga el componente, si cambia el parámetro search o el page el efecto se vuelve a ejecutar.
 
-  if (movies.length === 0) {
+  if (!loading && movies.length === 0) {
     return <NotFound />;
   }
 
-  // cuando llego al final de la página cambio a la siguiente página. (A la página anterior le suma 1)
+  // Cuando llego al final de la página, cambio a la siguiente página. (A la página anterior le suma 1).
+  // Si el parámetro hasMore está en true se ejecutará mi controlador de páginas
   const handlePageChange = () => setPage((prevPage) => prevPage + 1);
 
   return (
@@ -61,9 +62,9 @@ function Movies({ search }) {
       </section>
       <InfiniteScroll
         dataLength={movies.length}
-        hasMore={hasMore}
+        hasMore={hasMore} //Si está en true siempre quedará buscando más páginas.
         next={handlePageChange}
-        loader={<Spinner />}
+        loader={<Spinner />} //Se muestra el spinner cuando esté cargando la siguiente página.
       />
     </>
   );

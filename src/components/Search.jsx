@@ -5,18 +5,17 @@ import styles from "./Search.module.css";
 import useQuery from "../hooks/useQuery";
 
 function Search() {
-  const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState(""); // estado para controlar mi input
+  const navigate = useNavigate(); //Hook para cambiar el query y poder navegar a esa película. (Añadir un parámetro a la query).
 
   const query = useQuery();
-  const search = query.get("search");
+  const search = query.get("search"); //nos traemos el parámetro de busqueda search
 
-  // si cambia la busqueda en el search, entonces que el searchText cambie y actualizarlo con setSearchText con ese nuevo parámetro de busqueda que se ha pasado por la ruta.
   // si hay un cambio en el search, que setSearchText cambie el texto y ponga search (el texto que viene por la ruta).
   //   este efecto se va ejecutar si hay un cambio en el search
   useEffect(() => {
     // console.log(search)
-    setSearchText(search || " "); //si es nulo que esté vacío
+    setSearchText(search || " "); // si es nulo que esté vacío
   }, [search]);
 
   const handleSubmit = (event) => {
@@ -25,7 +24,10 @@ function Search() {
   };
 
   const handleSearchText = (event) => {
-    setSearchText(event.target.value.toLowerCase());
+    //me cambia el estado por el nuevo valor que tendrá el input.
+    const value = event.target.value.toLowerCase();
+    setSearchText(value);
+    navigate(`/?search=${value}`); //Paso value a setSearchText y en navigate para que cada vez que digito en el buscador vaya haciendo una busqueda
   };
 
   return (
@@ -35,10 +37,9 @@ function Search() {
         type="text"
         value={searchText}
         onChange={handleSearchText}
+        aria-label="Search movies"
       />
-      <button className={styles.search__button} type="submit">
-        <FaSearch />
-      </button>
+      <FaSearch className={styles.search__button} />
     </form>
   );
 }
