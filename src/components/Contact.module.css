@@ -30,9 +30,9 @@
   line-height: 1.5;
 }
 
-.about__icons{
-    display: flex;
-    justify-content: center;
+.about__icons {
+  display: flex;
+  justify-content: center;
 }
 
 .icon {
@@ -64,3 +64,23 @@
   border: 0.125rem solid rgba(255, 0, 0, 0.8);
   box-shadow: 0 0 0.375rem #ff0000, inset 0 0 3px #ff0800;
 }
+
+@media screen and (max-width: 650px) {
+  .about__title {
+    font-size: 35px;
+  }
+
+  .paragraph {
+    font-size: 16px;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .movieDetails__button {
+    padding: 5px 14px;
+    font-size: 13px;
+  }
+}
+
