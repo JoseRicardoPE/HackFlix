@@ -15,17 +15,20 @@ function Movies({ search }) {
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true); //Estado para averiguar si la página actual es menor al total de páginas de la API
 
+  const API = process.env.REACT_APP_API;
+  const API_TOKEN = process.env.REACT_APP_API_TOKEN;
+
   // Primero se carga el componente y luego se ejecuta el efecto
   useEffect(() => {
     setLoading(true);
     const searchUrlMovie = search
-      ? `https://api.themoviedb.org/3/search/movie?query=${search}` //Búsqueda específicia. (Trae las películas que coinciden con ese parámetro de busqueda).
-      : `https://api.themoviedb.org/3/movie/popular?api_key=af29515c6aa30c89141d36fb25af9426&page=${page}`; //Le paso &page al query como otra condición de busqueda, más la página
+      ? `${API}/search/movie?query=${search}` //Búsqueda específicia. (Trae las películas que coinciden con ese parámetro de busqueda).
+      : `${API}/movie/popular?api_key=af29515c6aa30c89141d36fb25af9426&page=${page}`; //Le paso &page al query como otra condición de busqueda, más la página
     async function getMovies() {
       const moviesApi = await axios.get(searchUrlMovie, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZjI5NTE1YzZhYTMwYzg5MTQxZDM2ZmIyNWFmOTQyNiIsInN1YiI6IjYyOWY2NDIzODUwMDVkMDA1MmI5NmM5YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-Db8x8Pn59YG6Wh0b_shbdmtgyzLoDq7Eox_MJqTFPA",
+            `Bearer${API_TOKEN}`,
           "Content-Type": "application/json;charset=utf-8",
         },
       });

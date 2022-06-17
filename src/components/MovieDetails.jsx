@@ -11,11 +11,13 @@ function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const API = process.env.REACT_APP_API;
+
   useEffect(() => {
     setLoading(true);
     async function getMovie() {
       const movieById = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=af29515c6aa30c89141d36fb25af9426`
+        `${API}/movie/${id}?api_key=af29515c6aa30c89141d36fb25af9426`
       );
       console.log(movieById.data); //No se utilizó .results porque el endpoint que me devuelve es el de la película en sí.
       setMovie(movieById.data);
